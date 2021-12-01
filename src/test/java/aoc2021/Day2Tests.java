@@ -27,7 +27,7 @@ public class Day2Tests {
 
     @Test
     void calculateRealAnswerPart1() throws IOException, URISyntaxException {
-        String[] testInput = FileReader.read("day2.txt");
+        String[] testInput = FileReader.read("Day2.txt");
 
         Day2 day2 = new Day2(testInput);
         System.out.println(day2.execute1());
@@ -35,7 +35,7 @@ public class Day2Tests {
 
     @Test
     void calculateRealAnswerPart2() throws IOException, URISyntaxException {
-        String[] testInput = FileReader.read("day2.txt");
+        String[] testInput = FileReader.read("Day2.txt");
 
         Day2 day2 = new Day2(testInput);
         System.out.println(day2.execute2());
