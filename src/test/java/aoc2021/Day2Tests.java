@@ -1,5 +1,6 @@
 package aoc2021;
 
+import aoc2021.day2.Day2;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
@@ -10,19 +11,19 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class Day2Tests {
 
     @Test
-    void testPart1BasicInputWorks() {
-        String[] testInput = new String[] {"199", "200", "208", "210", "200", "207", "240", "269", "260", "263"};
+    void testPart1BasicInputWorks() throws IOException, URISyntaxException {
+        String[] testInput = FileReader.read("Day2Example.txt");
 
         Day2 day2 = new Day2(testInput);
-        assertEquals(7, day2.execute1());
+        assertEquals(150, day2.execute1());
     }
 
     @Test
-    void testPart2BasicInputWorks() {
-        String[] testInput = new String[] {"199", "200", "208", "210", "200", "207", "240", "269", "260", "263"};
+    void testPart2BasicInputWorks() throws IOException, URISyntaxException {
+        String[] testInput = FileReader.read("Day2Example.txt");
 
         Day2 day2 = new Day2(testInput);
-        assertEquals(5, day2.execute2());
+        assertEquals(900, day2.execute2());
     }
 
     @Test
@@ -30,7 +31,7 @@ public class Day2Tests {
         String[] testInput = FileReader.read("Day2.txt");
 
         Day2 day2 = new Day2(testInput);
-        System.out.println(day2.execute1());
+        System.out.println(day2.execute2());
     }
 
     @Test
