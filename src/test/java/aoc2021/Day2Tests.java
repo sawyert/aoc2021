@@ -31,7 +31,7 @@ public class Day2Tests {
         String[] testInput = FileReader.read("Day2.txt");
 
         Day2 day2 = new Day2(testInput);
-        System.out.println(day2.execute2());
+        System.out.println(day2.execute1());
     }
 
     @Test
