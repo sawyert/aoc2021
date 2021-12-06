@@ -1,5 +1,6 @@
 package aoc2021;
 
+import aoc2021.day1.Day1;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;

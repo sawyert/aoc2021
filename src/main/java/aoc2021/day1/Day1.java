@@ -1,4 +1,4 @@
-package aoc2021;
+package aoc2021.day1;
 
 public class Day1 {
     String[] input;
