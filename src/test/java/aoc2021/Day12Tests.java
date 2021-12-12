@@ -27,11 +27,19 @@ public class Day12Tests {
     }
 
     @Test
+    void testPart2SmallInputWorks() throws IOException, URISyntaxException {
+        String[] testInput = FileReader.read("Day12Small.txt");
+
+        Day12 day12 = new Day12(testInput);
+        assertEquals(36, day12.execute2());
+    }
+
+    @Test
     void testPart2BasicInputWorks() throws IOException, URISyntaxException {
         String[] testInput = FileReader.read("Day12Example.txt");
 
         Day12 day12 = new Day12(testInput);
-        assertEquals(195, day12.execute2());
+        assertEquals(3509, day12.execute2());
     }
 
     @Test

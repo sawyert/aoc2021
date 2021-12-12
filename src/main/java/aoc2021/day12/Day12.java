@@ -59,13 +59,13 @@ public class Day12 {
             List<Cave> progress = new ArrayList<>();
             progress.add(start);
             progress.add(cave);
-            this.recurse(progress, cave, foundRoutes);
+            this.recurse1(progress, cave, foundRoutes);
         }
 
         return foundRoutes.size();
     }
 
-    public void recurse(List<Cave> pathSoFar, Cave start, List<String> foundRoutes) {
+    public void recurse1(List<Cave> pathSoFar, Cave start, List<String> foundRoutes) {
         System.out.println(this.pathSoFarAsString(pathSoFar));
         for (Cave nextCave: start.getLinkedCaves()) {
 
@@ -85,7 +85,7 @@ public class Day12 {
             List<Cave> newPathSoFar = new ArrayList<>();
             newPathSoFar.addAll(pathSoFar);
             newPathSoFar.add(nextCave);
-            this.recurse(newPathSoFar, nextCave, foundRoutes);
+            this.recurse1(newPathSoFar, nextCave, foundRoutes);
         }
     }
 
@@ -108,7 +108,43 @@ public class Day12 {
 
 
     public long execute2() {
-        return 0L;
+        Cave start = this.findCave("start");
+
+        List<String> foundRoutes = new ArrayList<>();
+
+        for (Cave cave : start.getLinkedCaves()) {
+            PathSoFar progress = new PathSoFar();
+            progress.add(start);
+            progress.add(cave);
+            this.recurse2(progress, cave, foundRoutes);
+        }
+
+        return foundRoutes.size();
+    }
+
+    public void recurse2(PathSoFar pathSoFar, Cave start, List<String> foundRoutes) {
+        System.out.println(pathSoFar.toString());
+        for (Cave nextCave: start.getLinkedCaves()) {
+
+            if (nextCave instanceof SmallCave && pathSoFar.contains(nextCave)) {
+                continue;
+            }
+
+            if (nextCave == this.findCave("end")) {
+                // this is a valid route
+                PathSoFar path = pathSoFar.duplicate();
+                path.add(nextCave);
+                String newRoute = pathSoFar.toString();
+                System.out.println(newRoute);
+                foundRoutes.add(newRoute);
+                continue;
+            }
+
+            PathSoFar newPathSoFar = new PathSoFar();
+            newPathSoFar.addAll(pathSoFar);
+            newPathSoFar.add(nextCave);
+            this.recurse2(newPathSoFar, nextCave, foundRoutes);
+        }
     }
 
 }
