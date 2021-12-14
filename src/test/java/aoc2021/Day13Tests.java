@@ -19,14 +19,6 @@ public class Day13Tests {
     }
 
     @Test
-    void testPart2BasicInputWorks() throws IOException, URISyntaxException {
-        String[] testInput = FileReader.read("Day13Example.txt");
-
-        Day13 day13 = new Day13(testInput);
-        assertEquals(3509, day13.execute2());
-    }
-
-    @Test
     void calculateRealAnswerPart1() throws IOException, URISyntaxException {
         String[] testInput = FileReader.read("Day13.txt");
 
