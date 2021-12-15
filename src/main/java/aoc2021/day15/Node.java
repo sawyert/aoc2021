@@ -14,15 +14,15 @@ public class Node {
     }
 
     public void link(Node node) {
-        this.links.add(node);
-        node.links.add(this);
+        this.links.add(0, node);
+        node.links.add(0, this);
     }
 
     public void calculateTraversalCosts() {
         for (Node eachNode : this.links) {
-//            if (eachNode.visited) {
-//                continue;
-//            }
+            if (eachNode.visited) {
+               continue;
+            }
 
             eachNode.setMinTraversalCostFrom(this.minimumTraversalCost);
         }
