@@ -4,102 +4,69 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Node {
-    private long minDistance = Long.MAX_VALUE;
-    private final int value;
+    private long minimumTraversalCost = Long.MAX_VALUE;
+    private int weight;
     private boolean visited = false;
-    private int x;
-    private int y;
+    List<Node> links = new ArrayList<>();
 
-    public Node(int value, int x, int y) {
-        this.value = value;
-        this.x = x;
-        this.y = y;
+    public Node(String eachChar) {
+        this.weight = Integer.parseInt(eachChar);
     }
 
-    public void clearMinDistance() {
-        this.minDistance = 0;
+    public void link(Node node) {
+        this.links.add(node);
+        node.links.add(this);
     }
 
-    public long getMinPath() {
-        return this.minDistance;
-    }
+    public void calculateTraversalCosts() {
+        for (Node eachNode : this.links) {
+//            if (eachNode.visited) {
+//                continue;
+//            }
 
-    public void walk(Node[][] nodes, int maxX, int maxY) {
-        List<Node> neighbours = this.calculateUnvisitedNeighbours(nodes, maxX, maxY);
-
-        for (Node neighbour : neighbours) {
-            neighbour.tryMinDistance(this.minDistance + this.value);
+            eachNode.setMinTraversalCostFrom(this.minimumTraversalCost);
         }
 
         this.visited = true;
-        System.out.println(this.y + "," + this.x + " visited");
+    }
 
-        this.printGrid(nodes, maxX, maxY);
+    private void setMinTraversalCostFrom(long prevNodeMinimumTraversalCost) {
+        long newValue = prevNodeMinimumTraversalCost + this.weight;
+        if (newValue < this.minimumTraversalCost) {
+            this.minimumTraversalCost = newValue;
+        }
+    }
 
-        long lowestDistance = Long.MAX_VALUE;
-        Node lowestDistanceNode = null;
-        for (Node neighbour : neighbours) {
-            if (neighbour.getMinPath() + neighbour.value < lowestDistance) {
-                lowestDistance = neighbour.getMinPath() + neighbour.value;
-                lowestDistanceNode = neighbour;
+    public void setAsStartNode() {
+        this.minimumTraversalCost = 0;
+        this.weight = 0;
+    }
+
+    public long getTraversalCost() {
+        return this.minimumTraversalCost;
+    }
+
+    public Node getMinimumScoreNode() {
+        long min = Long.MAX_VALUE;
+        Node minNode = null;
+        for (Node eachNode : this.links) {
+            if (eachNode.visited) {
+                continue;
+            }
+
+            if (eachNode.weight < min) {
+                min = eachNode.weight;
+                minNode = eachNode;
             }
         }
-
-        if (lowestDistanceNode != null) {
-            lowestDistanceNode.walk(nodes, maxX, maxY);
-        }
-
-        return;
+        return minNode;
     }
 
-    private void printGrid(Node[][] nodes, int maxX, int maxY) {
-        for (int py=0;py<=maxY; py++) {
-            for (int px=0;px<=maxX; px++) {
-                if (nodes[py][px].visited) {
-                    System.out.print(".");
-                } else {
-                    System.out.print(nodes[py][px].value);
-                }
-            }
-            System.out.println();
-        }
+    public boolean isVisited() {
+        return this.visited;
     }
 
-    private List<Node> calculateUnvisitedNeighbours(Node[][] nodes, int maxX, int maxY) {
-        Node left = null;
-        Node top = null;
-        Node right = null;
-        Node bottom = null;
-
-        if (this.x > 0) {
-            left = nodes[this.y][this.x-1];
-        }
-
-        if (this.x < maxX) {
-            right = nodes[this.y][this.x+1];
-        }
-
-        if (this.y > 0) {
-            top = nodes[this.y-1][this.x];
-        }
-
-        if (this.y < maxY) {
-            bottom = nodes[this.y+1][this.x];
-        }
-
-        List<Node> neighbours = new ArrayList<>();
-        if (bottom != null && !bottom.visited) neighbours.add(bottom);
-        if (right != null && !right.visited) neighbours.add(right);
-        if (left != null && !left.visited) neighbours.add(left);
-        if (top != null && !top.visited) neighbours.add(top);
-
-        return neighbours;
-
-    }
-
-    private void tryMinDistance(long minDistanceFrom) {
-        if (minDistanceFrom < this.minDistance) {
-            this.minDistance = minDistanceFrom;
-        }
+    public int getWeight() {
+        return this.weight;
     }
 }
