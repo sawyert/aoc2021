@@ -11,11 +11,19 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class Day15Tests {
 
     @Test
+    void testPart1Simple1InputWorks() throws IOException, URISyntaxException {
+        String[] testInput = FileReader.read("Day15Simple1.txt");
+
+        Day15 day15 = new Day15(testInput);
+        assertEquals(40, day15.execute1());
+    }
+
+    @Test
     void testPart1BasicInputWorks() throws IOException, URISyntaxException {
         String[] testInput = FileReader.read("Day15Example.txt");
 
         Day15 day15 = new Day15(testInput);
-        assertEquals(40, day15.execute1());
+        assertEquals(10, day15.execute1());
     }
 
     @Test

@@ -62,10 +62,6 @@ public class Grid {
             if (nextNode == this.endNode) {
                 break;
             }
-
-            System.out.println(counter);
-            counter++;
-            this.printGrid();
         }
 
         return;
