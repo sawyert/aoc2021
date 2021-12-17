@@ -8,21 +8,28 @@ public class Node {
     private int weight;
     private boolean visited = false;
     List<Node> links = new ArrayList<>();
+    private int x;
+    private int y;
 
-    public Node(String eachChar) {
+    public Node(String eachChar, int xLoc, int yLoc) {
+
         this.weight = Integer.parseInt(eachChar);
+        this.x = xLoc;
+        this.y = yLoc;
     }
 
     public void link(Node node) {
         this.links.add(0, node);
         node.links.add(0, this);
+
+
     }
 
     public void calculateTraversalCosts() {
         for (Node eachNode : this.links) {
-            if (eachNode.visited) {
-               continue;
-            }
+            //if (eachNode.visited) {
+            //   continue;
+            //}
 
             eachNode.setMinTraversalCostFrom(this.minimumTraversalCost);
         }
@@ -68,5 +75,9 @@ public class Node {
 
     public int getWeight() {
         return this.weight;
+    }
+
+    public Integer getXYScore() {
+        return this.x + this.y;
     }
 }

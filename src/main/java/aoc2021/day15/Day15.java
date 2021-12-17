@@ -12,6 +12,9 @@ public class Day15 {
 
         grid.calculateTraversalCosts();
 
+        grid.printGrid();
+        grid.printTraversalGrid();
+
         return grid.getEndNodeTraversalCost();
     }
 

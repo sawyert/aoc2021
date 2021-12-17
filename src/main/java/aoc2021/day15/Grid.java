@@ -1,7 +1,9 @@
 package aoc2021.day15;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Grid {
 
@@ -12,10 +14,11 @@ public class Grid {
 
 
     public Grid(String[] input) {
+        int counter = 0;
         for (String s: input) {
-            GridRow gridRow = new GridRow(s);
+            GridRow gridRow = new GridRow(s, counter);
             this.rows.add(gridRow);
-
+            counter++;
         }
 
         GridRow previous = null;
@@ -44,36 +47,31 @@ public class Grid {
         }
     }
 
+    public void printTraversalGrid() {
+        for (GridRow gridRow : this.rows) {
+            gridRow.printTraversalGridRow();
+        }
+    }
+
     public long getEndNodeTraversalCost() {
         return this.endNode.getTraversalCost();
     }
 
     public void calculateTraversalCosts() {
-        int counter = 0;
         Node nextNode = this.startNode;
-        while (true) {
+        boolean stillStuffToDo = true;
+        while (stillStuffToDo) {
             nextNode.calculateTraversalCosts();
-            nextNode = nextNode.getMinimumScoreNode();
+            nextNode = this.findNextUnvisitedNode();
 
             if (nextNode == null) {
-                nextNode = this.findNextUnvisitedNode();
-            }
-
-            if (nextNode == this.endNode) {
                 break;
             }
         }
-
-        return;
     }
 
     private Node findNextUnvisitedNode() {
-        for (Node node: this.allNodes) {
-            if (node.isVisited()) {
-                continue;
-            }
-            return node;
-        }
-        throw new UnsupportedOperationException();
+        Node node = this.allNodes.stream().filter(n-> !n.isVisited()).sorted(Comparator.comparing(Node::getXYScore)).findFirst().orElse(null);
+        return node;
     }
 }

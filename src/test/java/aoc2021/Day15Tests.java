@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 public class Day15Tests {
 
@@ -15,7 +16,7 @@ public class Day15Tests {
         String[] testInput = FileReader.read("Day15Simple1.txt");
 
         Day15 day15 = new Day15(testInput);
-        assertEquals(40, day15.execute1());
+        assertEquals(10, day15.execute1());
     }
 
     @Test
@@ -23,7 +24,7 @@ public class Day15Tests {
         String[] testInput = FileReader.read("Day15Example.txt");
 
         Day15 day15 = new Day15(testInput);
-        assertEquals(10, day15.execute1());
+        assertEquals(40, day15.execute1());
     }
 
     @Test
@@ -31,7 +32,7 @@ public class Day15Tests {
         String[] testInput = FileReader.read("Day15Example.txt");
 
         Day15 day15 = new Day15(testInput);
-        assertEquals(2188189693529L, day15.execute2());
+        assertEquals(0, day15.execute2());
     }
 
     @Test
@@ -40,6 +41,10 @@ public class Day15Tests {
 
         Day15 day15 = new Day15(testInput);
         long result = day15.execute1();
+
+        assertNotEquals(result, 394); // too high
+        assertNotEquals(result, 393); // too high
+        assertNotEquals(result, 392); // too high
 
         System.out.println(result);
     }

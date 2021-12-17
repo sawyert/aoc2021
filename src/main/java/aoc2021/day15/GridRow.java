@@ -6,11 +6,11 @@ import java.util.List;
 public class GridRow {
     List<Node> nodes = new ArrayList<>();
 
-    public GridRow(String s) {
+    public GridRow(String s, int y) {
         Node previous = null;
         for (int i=0; i<s.length();i++) {
             String eachChar = s.substring(i, i+1);
-            Node eachNode = new Node(eachChar);
+            Node eachNode = new Node(eachChar, i, y);
             this.nodes.add(eachNode);
             if (previous != null) {
                 eachNode.link(previous);
@@ -42,10 +42,16 @@ public class GridRow {
 
     public void printRow() {
         for (Node node: this.nodes) {
+            System.out.print(node.getWeight());
+        }
+        System.out.println();
+    }
+
+    public void printTraversalGridRow() {
+        for (Node node: this.nodes) {
             if (node.isVisited()) {
-                System.out.print(".");
-            } else {
-                System.out.print(node.getWeight());
+                System.out.print(node.getTraversalCost());
+                System.out.print(",");
             }
         }
         System.out.println();
